@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 export const DashboardLayout = ({ children, userName }: { children: ReactNode, userName: string }) => {
   return (
