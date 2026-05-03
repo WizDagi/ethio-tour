@@ -1,8 +1,18 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { fetchMe } from '../../auth/api';
 
 export const SlideItem = ({ slide }: { slide: any }) => {
+  const { data: userResponse } = useQuery({
+    queryKey: ['me'],
+    queryFn: fetchMe,
+    retry: false
+  });
+
+  const user = userResponse?.data?.user;
+
   return (
     <div className="w-full h-full relative">
       <img
@@ -58,7 +68,7 @@ export const SlideItem = ({ slide }: { slide: any }) => {
             </svg>
           </Link>
           <Link
-            to="/register"
+            to={user ? "/dashboard" : "/register"}
             className="inline-flex items-center text-white/80 hover:text-white font-medium text-sm transition-colors border border-white/30 hover:border-white/60 px-5 py-3.5 rounded-full backdrop-blur-sm"
           >
             Plan Your Trip
